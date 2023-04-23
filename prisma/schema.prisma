@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id @default(uuid())
+  name     String
+  username String    @unique
+  isAdmin  Boolean
+  cotacoes Cotacao[] @relation("vendor")
+
+  @@map("users")
+}
+
+model Cotacao {
+  id           String  @id @default(uuid())
+  clientName   String
+  clientCpf    Int
+  vendor       User    @relation("vendor", fields: [userVendorId], references: [id])
+  userVendorId String
+  observations String?
+
+  @@map("cotacoes")
+}
