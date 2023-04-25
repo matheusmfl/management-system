@@ -7,23 +7,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id       String    @id @default(uuid())
+model Corretor {
+  id       String     @id @default(uuid())
   name     String
-  username String    @unique
+  username String     @unique
   isAdmin  Boolean
-  cotacoes Cotacao[] @relation("vendor")
+  Proposta Proposta[]
 
-  @@map("users")
+  @@map("corretor")
 }
 
-model Cotacao {
-  id           String  @id @default(uuid())
-  clientName   String
-  clientCpf    Int
-  vendor       User    @relation("vendor", fields: [userVendorId], references: [id])
-  userVendorId String
-  observations String?
+model Client {
+  id           String     @id @default(uuid())
+  Name         String
+  Cpf          Int
+  Observations String?
+  Seguros      Proposta[]
 
-  @@map("cotacoes")
+  @@map("client")
+}
+
+model Proposta {
+  id             String   @id @default(uuid())
+  numeroProposta String
+  seguradora     String
+  dataVencimento DateTime
+  corretor       Corretor @relation(fields: [corretorId], references: [id])
+  corretorId     String
+  client         Client   @relation(fields: [clientId], references: [id])
+  clientId       String
+
+  @@map("proposta")
 }

@@ -1,9 +1,15 @@
 import fastify from "fastify";
+import { prisma } from "./lib/prisma";
+
+
 
 const app = fastify()
 
-app.get('/users', async () => {
+app.get('/corretores', (req, res) => {
 
+  const corretores = prisma.corretor.findMany()
+
+  res.send(corretores)
 })
 
 app.listen({
