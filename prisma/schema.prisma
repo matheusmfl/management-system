@@ -19,10 +19,10 @@ model Corretor {
 
 model Client {
   id           String     @id @default(uuid())
-  Name         String
-  Cpf          Int
-  Observations String?
-  Seguros      Proposta[]
+  name         String
+  cpf          Int
+  cbservations String?
+  seguros      Proposta[]
 
   @@map("client")
 }
