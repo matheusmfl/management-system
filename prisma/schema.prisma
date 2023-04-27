@@ -21,7 +21,7 @@ model Client {
   id           String     @id @default(uuid())
   name         String
   cpf          Int
-  cbservations String?
+  observations String?
   seguros      Proposta[]
 
   @@map("client")
